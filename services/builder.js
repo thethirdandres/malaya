@@ -178,7 +178,7 @@ module.exports = class Builder {
   }
 
   static genMessageResponseSequence(sequence, msgParam){
-    let message = sequence['message'] ? sequence['message'].replace("/\\n/g","\n") : "";
+    let message = sequence['message'] ? sequence['message'].replace("\\n","\n") : "";
     if(msgParam.length > 0){
       for(var i=0; i < msgParam.length; i++){
         message = message.replace(`{{${i}}}`,msgParam[i]);
@@ -200,10 +200,9 @@ module.exports = class Builder {
                                                 }); 
         
         sequenceButtons.forEach(sequenceButton => {
-          buttons.push(TemplateBuilder.genButtonPayload(
+          buttons.push(this.genPostbackButton(
             sequenceButton['title'],
-            sequenceButton['payload'],
-            sequenceButton['type']
+            sequenceButton['payload']
           ))
         });
 
@@ -228,10 +227,9 @@ module.exports = class Builder {
                             }).filter( seq =>{
                                 return seq['is_active'];
                             }).forEach(elementButton => {
-                                elementButtonList.push(this.genButtonPayload(
+                                elementButtonList.push(this.genPostbackButton(
                                   elementButton['title'],
-                                  elementButton['payload'],
-                                  elementButton['type']
+                                  elementButton['payload']
                                 ))
                             });
 

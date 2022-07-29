@@ -29,6 +29,10 @@ module.exports = {
   apiDomain: "https://graph.facebook.com",
   apiVersion: "v14.0",
 
+  get mPlatfom() {
+    return this.apiDomain + "/" + this.apiVersion;
+  },
+
   // Page and Application information
   pageId: process.env.PAGE_ID,
   appId: process.env.APP_ID,

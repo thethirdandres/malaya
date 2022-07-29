@@ -18,6 +18,7 @@ const express = require("express"),
   Receive = require("./services/receive"),
   GraphApi = require("./services/graph-api"),
   User = require("./services/user"),
+  Repository = require("./services/repository"),
   config = require("./services/config"),
   i18n = require("./i18n.config"),
   app = express();
@@ -202,6 +203,7 @@ function isGuestUser(webhookEvent) {
 }
 
 async function receiveAndReturn(user, webhookEvent, isUserRef) {
+  Repository.addCustomerMainPsid(user.psid, user, webhookEvent, config.pageAccesToken);
   let receiveMessage = new Receive(user, webhookEvent, isUserRef);
   return await receiveMessage.handleMessage();
 }

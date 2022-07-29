@@ -22,6 +22,7 @@ module.exports = class Receive {
     this.webhookEvent = webhookEvent;
     this.isUserRef = isUserRef;
     this.state = "";
+    this.pillStatus = "";
   }
 
   // Check if the event is a message or postback and
@@ -59,7 +60,7 @@ module.exports = class Receive {
     if (Array.isArray(responses)) {
       let delay = 0;
       for (let response of responses) {
-        this.sendMessage(response, delay * 2000, this.isUserRef);
+        this.sendMessage(await response, delay * 2000, this.isUserRef);
         delay++;
       }
     } else {
@@ -302,7 +303,7 @@ module.exports = class Receive {
       let button2 = TemplateBuilder.genPostbackButton("Select", "SH_PREGNANCY_HOW"); 
       let button3 = TemplateBuilder.genPostbackButton("Select", "SH_PREGNANCY_INDICATION");
       let button4 = TemplateBuilder.genPostbackButton("MORE", "SH_PREGNANCY_MORE");
-      let item1 = TemplateBuilder.genGenericMenuItem("Paano umiwas sa pagbubuntis??", "www.image.com", [button1]);
+      let item1 = TemplateBuilder.genGenericMenuItem("Paano umiwas sa pagbubuntis?", "www.image.com", [button1]);
       let item2 = TemplateBuilder.genGenericMenuItem("Paano nangyayari ang pagbubuntis?", "www.image.com", [button2]);
       let item3 = TemplateBuilder.genGenericMenuItem("Paano ko malalaman kung buntis ako?", "www.image.com", [button3]);
       let item4 = TemplateBuilder.genGenericMenuItem("Iba pang tanong.", "www.image.com", [button4]);
@@ -460,7 +461,7 @@ module.exports = class Receive {
     else if(payload.startsWith("Q_BREASTFEED")) {
       if(payload === "Q_BREASTFEED_YES") {
         this.user.state = "";
-        response.push(TemplateBuilder.genText(`Halos lahat ngcontraceptives katuladng DMPA, Implant, IUD at condom ay pwede sa mga nagpapasuso. Puwede rin ang pills, pero kailangan ito ay Progestin-Only Pill.`));
+        response.push(TemplateBuilder.genText(`Halos lahat ngcontraceptives katulad ng DMPA, Implant, IUD at condom ay pwede sa mga nagpapasuso. Puwede rin ang pills, pero kailangan ito ay Progestin-Only Pill.`));
       } else {
         this.user.state = "PILLS";
       }
@@ -535,7 +536,7 @@ module.exports = class Receive {
     else if(payload === "Q_REMEMBER_DAILY_YES") {
       response.push(TemplateBuilder.genQuickReply("Mahalaga ba sa iyo ang pangmatagalang proteksyon?", [
         {
-          title: "Hindi/Hindi masyado",
+          title: "Hindi/Hindi masyado.",
           payload: "Q_FAMILY_PLANNING_NO_EXTENDED" 
         },
         {
@@ -777,7 +778,7 @@ module.exports = class Receive {
     }
     else if(payload === "CONDOM_WHO") {
       response.push(TemplateBuilder.genText(`Kahit sino, basta aktibo sa pakikipagtalik at hindi allergic sa latex.`));
-      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa implant?", [
+      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa condom?", [
         {
           title: "Oo.",
           payload: "SH_C_CONDOM_EXTENDED" 
@@ -798,7 +799,7 @@ module.exports = class Receive {
     }
     else if(payload === "CONDOM_SIDE_EFFECTS") {
       response.push(TemplateBuilder.genText(`Basta walang allergies sa latex (at sobrang bihira ng mga taong ganito!), wala itong side effects.`));
-      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa implant?", [
+      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa condom?", [
         {
           title: "Oo.",
           payload: "SH_C_CONDOM_EXTENDED" 
@@ -859,7 +860,7 @@ module.exports = class Receive {
         response.push(TemplateBuilder.genText(`Step 7: Pagkatapos labasan, hawakan ang bukana o labi ng condom at hubarin ang condom malayo sa katawan ng katalik habang ang titi ay matigas pa.`));
         response.push(TemplateBuilder.genText(`Step 8: Ibuhol ang condom at itapon nang maayos sa basurahan.`));
       
-        response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa implant?", [
+        response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa condom?", [
           {
             title: "Oo.",
             payload: "SH_C_CONDOM_EXTENDED" 
@@ -882,7 +883,7 @@ module.exports = class Receive {
     else if(payload === "CONDOM_SOURCE") {
       response.push(TemplateBuilder.genText(`May nabibiling condom sa mga botika, ospital, malls at pati na rin sa malalaking supermarket.`));
       response.push(TemplateBuilder.genText(`Maari rin kayong makakuha ng libreng condom sa inyong Barangay Health Center, kung mayroon silang sapat na supply.`));
-      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa implant?", [
+      response.push(TemplateBuilder.genQuickReply("May gusto ka pa bang malaman tungkol sa condom?", [
         {
           title: "Oo.",
           payload: "SH_C_CONDOM_EXTENDED" 
@@ -1727,19 +1728,22 @@ module.exports = class Receive {
       response.push(TemplateBuilder.genText(`Kung may gusto pa kayong malaman o itanong, mag message lang sa amin anytime.`));
     }
  */
-    console.log("Received Payload:", `${payload} for ${this.user.psid}`);
 
     switch (payload) {
-      
-      case "GET_STARTED":
-          this.user.state = "GET_STARTED";
-          break;
-
-      default:
+      case "Q_BREASTFEED_YES":
+        this.user.pillStatus = "PROGESTIN";
         break;
-    }
+      case "Q_BREASTFEED_NO":
+        this.user.pillStatus = "";
+        break;
+        
     
-    Repository.updateCustomerChatState(this.user.psid, this.user.state);
+      default:
+        this.user.state = payload;
+    }
+
+    
+    // Repository.updateCustomerChatState(this.user);
 
     return await Response.genResponseMessageSequence(payload, this.user);
   }
@@ -1777,6 +1781,7 @@ module.exports = class Receive {
   }
 
   sendMessage(response, delay = 0, isUserRef) {
+    console.log("RRRRR", response)
     // Check if there is delay in the response
     if (response === undefined) {
       return;
@@ -1830,6 +1835,7 @@ module.exports = class Receive {
 
     setTimeout(() => GraphApi.callSendApi(requestBody), delay);
   }
+
   sendRecurringMessage(notificationMessageToken, delay) {
     console.log("Received Recurring Message token");
     let requestBody = {},
