@@ -12,7 +12,7 @@ admin.initializeApp({
   ),
 });
 
-let db = admin.firestore();
+let db = admin.firestore();  
 
 module.exports = class Repository {
     static updateCustomerChatState(user){
