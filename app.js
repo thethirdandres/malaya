@@ -30,7 +30,7 @@ app.use(
   urlencoded({
     extended: true
   })
-);
+);   
 
 // Parse application/json. Verify that callback came from Facebook
 app.use(json({ verify: verifyRequestSignature }));
