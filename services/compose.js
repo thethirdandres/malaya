@@ -7,9 +7,11 @@ module.exports = class {
         let msgParamList = [];
         switch (payload) {
             case "GET_STARTED":
+            case "PRE_GET_STARTED":
             case "MENU_INITIAL":
             case "MENU":
             case "BC_QUIZ":
+            
                 msgParamList.push(user.firstName);
                 break;
             

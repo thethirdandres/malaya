@@ -25,9 +25,11 @@ module.exports = class Repository {
                 if(customerSnapshot.exists){
                     customerRef.update({
                         age_range: "",
-                        gender: "",
+                        customerName: `${user.firstName} ${user.lastName}`,
+                        docId: user.psid,
+                        gender: user.gender,
                         lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                        location: "",
+                        location: user.location,
                         updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                     });
                 } else{
@@ -35,9 +37,9 @@ module.exports = class Repository {
                         age_range: "",
                         customerName: `${user.firstName} ${user.lastName}`,
                         docId: user.psid,
-                        gender: "",
+                        gender: user.gender,
                         lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                        location: "",
+                        location: user.location,
                         updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                     });
                 }
