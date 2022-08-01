@@ -203,7 +203,7 @@ function isGuestUser(webhookEvent) {
 }
 
 async function receiveAndReturn(user, webhookEvent, isUserRef) {
-  Repository.addCustomerMainPsid(user.psid, user, webhookEvent, config.pageAccesToken);
+  Repository.addCustomerMainPsid(user, webhookEvent, config.pageAccesToken);
   let receiveMessage = new Receive(user, webhookEvent, isUserRef);
   return await receiveMessage.handleMessage();
 }

@@ -94,7 +94,7 @@ module.exports = class Repository {
     }
 
 
-    static async addCustomerMainPsid(senderPsid, user, webhookEvent, fbPageToken){
+    static async addCustomerMainPsid(user, webhookEvent, fbPageToken){
         let textMsg = "";
         let attachmentsPayload = [];
         let mid;
@@ -124,7 +124,7 @@ module.exports = class Repository {
             lastMessage = textMsg == "" ? `Received ${receivedType}` : textMsg;
 
             try {
-                const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(senderPsid);
+                const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(user.psid);
                 customerRef.get().then((customerSnapshot)=>{
                     if(customerSnapshot.exists){
                         customerRef.update({
@@ -148,7 +148,7 @@ module.exports = class Repository {
                 })
 
                 if(mid && mid !== "") {
-                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${senderPsid}/Conversations`).doc(mid);
+                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${user.psid}/Conversations`).doc(mid);
                     customerConvoRef.get().then((convoSnap)=>{
                         if(!convoSnap.exists){
                             customerConvoRef.set({
