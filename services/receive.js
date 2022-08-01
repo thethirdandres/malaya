@@ -175,8 +175,16 @@ module.exports = class Receive {
       case "GET_STARTED_VISAYAS":
         this.user.location = "VISAYAS";
         break;
-      case "GET_STARTED_MINDANAO":
-        this.user.location = "MINDANAO";
+      case "MENU_INITIAL_12":
+        this.user.age = "0-12";
+        break;
+
+      case "MENU_INITIAL_16":
+        this.user.age = "13-16";
+        break;
+        
+      case "MENU_INITIAL_19":
+        this.user.age = "17-19";
         break;
         
     

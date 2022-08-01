@@ -128,20 +128,20 @@ module.exports = class Repository {
                 customerRef.get().then((customerSnapshot)=>{
                     if(customerSnapshot.exists){
                         customerRef.update({
-                            age_range: "",
-                            gender: "",
+                            age_range: user.age,
+                            gender: user.gender,
                             lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                            location: "",
+                            location: user.location,
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                         });
                     } else{
                         customerRef.set({
-                            age_range: "",
+                            age_range: user.age,
                             customerName: `${user.firstName} ${user.lastName}`,
                             docId: user.psid,
-                            gender: "",
+                            gender: user.gender,
                             lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                            location: "",
+                            location: user.location,
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                         });
                     }
