@@ -178,15 +178,12 @@ module.exports = class Receive {
       case "MENU_INITIAL_12":
         this.user.age = "0-12";
         break;
-
       case "MENU_INITIAL_16":
         this.user.age = "13-16";
         break;
-        
       case "MENU_INITIAL_19":
         this.user.age = "17-19";
         break;
-        
     
       default:
         this.user.state = payload;
@@ -231,7 +228,6 @@ module.exports = class Receive {
   }
 
   sendMessage(response, delay = 0, isUserRef) {
-    console.log("RRRRR", response)
     // Check if there is delay in the response
     if (response === undefined) {
       return;

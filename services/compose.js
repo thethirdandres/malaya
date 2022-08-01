@@ -8,7 +8,9 @@ module.exports = class {
         switch (payload) {
             case "GET_STARTED":
             case "PRE_GET_STARTED":
-            case "MENU_INITIAL":
+            case "MENU_INITIAL_12":
+            case "MENU_INITIAL_16":
+            case "MENU_INITIAL_19":
             case "MENU":
             case "BC_QUIZ":
             
