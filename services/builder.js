@@ -184,6 +184,7 @@ module.exports = class Builder {
         message = message.replace(`{{${i}}}`,msgParam[i]);
       }
     }
+    console.log("MESSAGE IS:", message);
     message = message.replace(" !","!");
     let buttons = [];
     switch (sequence['message_type']) {
