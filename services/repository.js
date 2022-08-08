@@ -184,7 +184,7 @@ module.exports = class Repository {
                         })
                     } else {
                         customerDoc.forEach(async doc => {
-                            doc.update({
+                            await doc.update({
                                 updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                             })
                         })
