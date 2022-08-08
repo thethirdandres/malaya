@@ -249,7 +249,7 @@ module.exports = class Builder {
         }).filter( seq =>{
               return seq['is_active'];
         });
-        console.log(sequence['message']);
+        console.log("THIS IS THE MESSAGE IN SEQUENCE", sequence['message']);
         console.log(repliesElementList);
 
         return this.genQuickReply(sequence['message'], repliesElementList);
