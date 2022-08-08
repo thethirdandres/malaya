@@ -164,26 +164,25 @@ module.exports = class Repository {
                 }
 
                 if(user.subtopic !== "") {
-                    const customerTopicRef = db.collection(`Tenant/Malaya/Topics/`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
-                    customerTopicRef.get().then((snap)=>{
-                        if(!snap.exists) {
-                            customerTopicRef.add({
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                psid: user.psid,
-                                docId: snap.id,
-                                createDate: admin.firestore.Timestamp.fromDate(new Date()),
-                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
-                                topic: user.topic,
-                                subtopic: user.subtopic
-                            })
-                        } else {
-                            customerTopicRef.update({
-                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
-                            })
-                        }
-                    })
+                    const customerTopicRef = await db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic).get();
+                    if(customerTopicRef.empty) {
+                        await db.collection(`Tenant/Malaya/Topics`).add({
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            psid: user.psid,
+                            docId: snap.id,
+                            createDate: admin.firestore.Timestamp.fromDate(new Date()),
+                            updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                            topic: user.topic,
+                            subtopic: user.subtopic
+                        })
+                    } else {
+                        customerTopicRef.update({
+                            updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                        })
+                    }
                 }
+                
             } catch (error) {
                 console.log(error);
                 return "ok"
