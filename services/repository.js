@@ -182,7 +182,7 @@ module.exports = class Repository {
                             })
                         })
                     } else {
-                        customerTopicRef.update({
+                        await db.collection(`Tenant/Malaya/Topics`).update({
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                         })
                     }
