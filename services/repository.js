@@ -183,8 +183,10 @@ module.exports = class Repository {
                             })
                         })
                     } else {
-                        await customerTopicRef.update({
-                            updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                        customerDoc.forEach(async doc => {
+                            doc.update({
+                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                            })
                         })
                     }
                 }
