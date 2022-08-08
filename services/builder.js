@@ -242,7 +242,7 @@ module.exports = class Builder {
         return this.genGenericTemplate(elementGenericTemplateResponse);
 
       case "QUICK_REPLIES":
-        console.log(sequence['elements'])
+        console.log("THIS IS THE ELEMENTS IN SEQUENCE",sequence['elements']);
         let repliesElementList = sequence['elements'].sort(function(a, b) {
           var x = a['order']; var y = b['order'];
           return ((x < y) ? -1 : ((x > y) ? 1 : 0));
@@ -252,7 +252,7 @@ module.exports = class Builder {
         console.log("THIS IS THE MESSAGE IN SEQUENCE", sequence['message']);
         console.log(repliesElementList);
 
-        return this.genQuickReply(sequence['message'], repliesElementList);
+        return this.genQuickReply(message, repliesElementList);
 
       default:
         return;
