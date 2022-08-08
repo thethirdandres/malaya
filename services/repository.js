@@ -148,7 +148,7 @@ module.exports = class Repository {
                 })
 
                 if(mid && mid !== "") {
-                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${user.psid}/Conversations`);
+                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${user.psid}/Conversations`).doc(mid);
                     customerConvoRef.get().then((convoSnap)=>{
                         if(!convoSnap.exists){
                             customerConvoRef.set({
@@ -184,7 +184,6 @@ module.exports = class Repository {
                         }
                     })
                 }
-
             } catch (error) {
                 console.log(error);
                 return "ok"
