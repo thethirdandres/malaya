@@ -165,9 +165,11 @@ module.exports = class Repository {
 
                 console.log("user subtopic", user.subtopic);
                 console.log("IS IT BLANK?", user.subtopic === "");
+
                 if(user.subtopic !== "") {
-                    const customerTopicRef = await db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic).get();
-                    if(customerTopicRef.empty) {
+                    let customerTopicRef = db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
+                    let customerDoc = await customerTopicRef.get();
+                    if(!customerDoc.exists) {
                         await db.collection(`Tenant/Malaya/Topics`).add({
                             firstName: user.firstName,
                             lastName: user.lastName,
@@ -182,7 +184,7 @@ module.exports = class Repository {
                             })
                         })
                     } else {
-                        await db.collection(`Tenant/Malaya/Topics`).update({
+                        await customerTopicRef.update({
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                         })
                     }
