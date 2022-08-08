@@ -172,11 +172,14 @@ module.exports = class Repository {
                             firstName: user.firstName,
                             lastName: user.lastName,
                             psid: user.psid,
-                            docId: newTopic.id,
                             createDate: admin.firestore.Timestamp.fromDate(new Date()),
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                             topic: user.topic,
                             subtopic: user.subtopic
+                        }).then(doc => {
+                            newTopic.update({
+                                docId: doc.id,
+                            })
                         })
                     } else {
                         customerTopicRef.update({
