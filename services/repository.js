@@ -167,7 +167,7 @@ module.exports = class Repository {
                     const customerTopicRef = db.collection(`Tenant/Malaya/Topics/`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
                     customerTopicRef.get().then((snap)=>{
                         if(!snap.exists) {
-                            customerTopicRef.set({
+                            customerTopicRef.add({
                                 firstName: user.firstName,
                                 lastName: user.lastName,
                                 psid: user.psid,
