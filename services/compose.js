@@ -6,14 +6,14 @@ module.exports = class {
     static composeMsgParam(payload, user){
         let msgParamList = [];
         switch (payload) {
-            case "GET_STARTED":
             case "PRE_GET_STARTED":
+            case "GET_STARTED":
             case "MENU_INITIAL_12":
             case "MENU_INITIAL_16":
             case "MENU_INITIAL_19":
             case "MENU":
             case "BC_QUIZ":
-            
+                console.log("USER FIRST NAME IS ", user.firstName);
                 msgParamList.push(user.firstName);
                 break;
              
