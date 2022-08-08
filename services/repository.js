@@ -184,11 +184,11 @@ module.exports = class Repository {
                         })
                     } else {
                         customerDoc.forEach(async doc => {
-                            await doc.update({
-                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
-                            })
+                          await rds.collection(`Tenant/Malaya/Topics`).doc(doc.data().docId).update({
+                            updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                          })
                         })
-                    }
+                      }
                 }
                 
             } catch (error) {
