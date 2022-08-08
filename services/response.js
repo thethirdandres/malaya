@@ -12,7 +12,6 @@ module.exports = class Response {
   
         if(message_sequence){
           let msgParam = Composer.composeMsgParam(payload, user);
-          console.log("PARAM MSG IS:", msgParam[0]);
           message_sequence.forEach(sequence =>{
             response.push(TemplateBuilder.genMessageResponseSequence(sequence, msgParam));
           }) 

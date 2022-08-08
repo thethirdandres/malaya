@@ -148,7 +148,7 @@ module.exports = class Repository {
                 })
 
                 if(mid && mid !== "") {
-                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${user.psid}/Conversations`).doc(mid);
+                    const customerConvoRef = db.collection(`Tenant/Malaya/Customers/${user.psid}/Conversations`);
                     customerConvoRef.get().then((convoSnap)=>{
                         if(!convoSnap.exists){
                             customerConvoRef.set({
@@ -160,6 +160,28 @@ module.exports = class Repository {
                                 state: user.state
                             });
                         } 
+                    })
+                }
+
+                if(user.subtopic !== "") {
+                    const customerTopicRef = db.collection(`Tenant/Malaya/Topics/`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
+                    customerTopicRef.get().then((snap)=>{
+                        if(!snap.exists) {
+                            customerTopicRef.set({
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                psid: user.psid,
+                                docId: snap.id,
+                                createDate: admin.firestore.Timestamp.fromDate(new Date()),
+                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                                topic: user.topic,
+                                subtopic: user.subtopic
+                            })
+                        } else {
+                            customerTopicRef.update({
+                                updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                            })
+                        }
                     })
                 }
 

@@ -7,7 +7,6 @@ module.exports = class {
         let msgParamList = [];
         switch (payload) {
             case "PRE_GET_STARTED":
-                console.log("USER FIRST NAME IS ", user.firstName);
             case "MENU_INITIAL_12":
             case "MENU_INITIAL_16":
             case "MENU_INITIAL_19":

@@ -187,6 +187,19 @@ module.exports = class Receive {
       case "MENU_INITIAL_19":
         this.user.age = "17-19";
         break;
+      case "ASK_SEXUAL_HEALTH":
+        this.user.topic = "Sexual Health";
+        this.user.subtopic = "";
+        break;
+      case "SH_CONTRACEPTIVES":
+        this.user.subtopic = "Contraceptives";
+        break;
+      case "SH_PREGNANCY":
+        this.user.subtopic = "Pregnancy";
+        break;
+      case "SH_STI":
+        this.user.subtopic = "Sexually Transmitted Diseases";
+        break;
     
       default:
         this.user.state = payload;

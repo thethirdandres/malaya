@@ -20,6 +20,8 @@ module.exports = class User {
     this.gender = "";
     this.location = "";
     this.age = "";
+    this.topic = "";
+    this.subtopic= "";
   }
   setProfile(profile) {
     this.firstName = profile.firstName || "";

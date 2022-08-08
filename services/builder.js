@@ -184,7 +184,6 @@ module.exports = class Builder {
         message = message.replace(`{{${i}}}`,msgParam[i]);
       }
     }
-    console.log("MESSAGE IS:", message);
     message = message.replace(" !","!");
     let buttons = [];
     switch (sequence['message_type']) {
@@ -242,14 +241,13 @@ module.exports = class Builder {
         return this.genGenericTemplate(elementGenericTemplateResponse);
 
       case "QUICK_REPLIES":
-        console.log("THIS IS THE ELEMENTS IN SEQUENCE",sequence['elements']);
         let repliesElementList = sequence['elements'].sort(function(a, b) {
           var x = a['order']; var y = b['order'];
           return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         }).filter( seq =>{
               return seq['is_active'];
         });
-        console.log("THIS IS THE MESSAGE IN SEQUENCE", sequence['message']);
+        console.log(sequence['message']);
         console.log(repliesElementList);
 
         return this.genQuickReply(message, repliesElementList);
