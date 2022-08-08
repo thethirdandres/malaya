@@ -168,7 +168,7 @@ module.exports = class Repository {
                 if(user.subtopic !== "") {
                     const customerTopicRef = await db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic).get();
                     if(customerTopicRef.empty) {
-                        const newTopic = await db.collection(`Tenant/Malaya/Topics`).add({
+                        await db.collection(`Tenant/Malaya/Topics`).add({
                             firstName: user.firstName,
                             lastName: user.lastName,
                             psid: user.psid,
@@ -177,7 +177,7 @@ module.exports = class Repository {
                             topic: user.topic,
                             subtopic: user.subtopic
                         }).then(doc => {
-                            newTopic.update({
+                            doc.update({
                                 docId: doc.id,
                             })
                         })
