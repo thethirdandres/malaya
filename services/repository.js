@@ -157,7 +157,6 @@ module.exports = class Repository {
                                 docId: mid,
                                 from: "user",
                                 message: textMsg,
-                                state: user.state
                             });
                         } 
                     })
