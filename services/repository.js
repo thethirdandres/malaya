@@ -166,7 +166,8 @@ module.exports = class Repository {
                 console.log("IS IT BLANK?", user.subtopic === "");
 
                 if(user.subtopic !== "") {
-                    let customerTopicRef = db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
+                    let customerPsid = db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid);
+                    let customerTopicRef = customerPsid.where("subtopic", "==", user.subtopic);
                     let customerDoc = await customerTopicRef.get();
                     if(!customerDoc.exists) {
                         await db.collection(`Tenant/Malaya/Topics`).add({
