@@ -16,7 +16,7 @@ module.exports = class {
             
                 msgParamList.push(user.firstName);
                 break;
-            
+             
             case "Q_FAMILY_PLANNING_NO":
                 if(user.pillStatus === "PROGESTIN"){
                     msgParamList.push("PROGESTIN-ONLY PILLS!");
