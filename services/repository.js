@@ -168,11 +168,11 @@ module.exports = class Repository {
                 if(user.subtopic !== "") {
                     const customerTopicRef = await db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic).get();
                     if(customerTopicRef.empty) {
-                        await db.collection(`Tenant/Malaya/Topics`).add({
+                        const newTopic = await db.collection(`Tenant/Malaya/Topics`).add({
                             firstName: user.firstName,
                             lastName: user.lastName,
                             psid: user.psid,
-                            docId: snap.id,
+                            docId: newTopic.id,
                             createDate: admin.firestore.Timestamp.fromDate(new Date()),
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                             topic: user.topic,
