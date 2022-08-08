@@ -163,6 +163,8 @@ module.exports = class Repository {
                     })
                 }
 
+                console.log("user subtopic", user.subtopic);
+                console.log("IS IT BLANK?", user.subtopic === "");
                 if(user.subtopic !== "") {
                     const customerTopicRef = await db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic).get();
                     if(customerTopicRef.empty) {
