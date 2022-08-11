@@ -33,13 +33,13 @@ module.exports = class Repository {
             return;
         }
     }
-    
+
     static getCustomerChatState(user){
         console.log("state passed to getCustomerChatState", user.state);
         console.log("senderPsid passed to getCustomerChatsenderState", user.psid);
 
         try {
-            const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(user.psid).get();
+            const customerRef = db.collection(`Tenant/Malaya/Customers/${user.psid}`).get();
             if (!customerRef.exists) {
                 console.log('No such document!');
                 return null;

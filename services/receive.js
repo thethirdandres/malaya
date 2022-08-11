@@ -80,10 +80,12 @@ module.exports = class Receive {
 
     let userState = Repository.getCustomerChatState(this.user);
     console.log("userState1", userState);
+    console.log("location1", this.user.location);
 
     switch (userState) {
       case "PROVIDE_LOCATION":
-        this.user.location = this.webhookEvent.message.text.toUpperCase();
+        this.user.location = event.message.text.toUpperCase();
+        console.log("location2", this.user.location);
         userState = "MENU_EXTENDED";
         this.user.state = userState;
         console.log("userState2", userState);
@@ -167,25 +169,16 @@ module.exports = class Receive {
         this.user.pillStatus = "";
         break;
       case "GENDER_MALE":
-        this.user.gender = "MALE";
+        this.user.gender = "male";
         this.user.state = "PROVIDE_LOCATION";
         break;
       case "GENDER_FEMALE":
-        this.user.gender = "FEMALE";
+        this.user.gender = "female";
         this.user.state = "PROVIDE_LOCATION";
         break;
       case "GENDER_NONE":
         this.user.gender = "";
         this.user.state = "PROVIDE_LOCATION";
-        break;
-      case "GET_STARTED_LUZON":
-        this.user.location = "LUZON";
-        break;
-      case "GET_STARTED_VISAYAS":
-        this.user.location = "VISAYAS";
-        break;
-      case "GET_STARTED_MINDANAO":
-        this.user.location = "MINDANAO";
         break;
       case "AGE_12":
         this.user.age = "0-12";
