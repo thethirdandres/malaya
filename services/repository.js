@@ -36,16 +36,15 @@ module.exports = class Repository {
 
     static getCustomerChatState(user){
         console.log("state passed to getCustomerChatState", user.state);
-        console.log("senderPsid passed to getCustomerChatsenderState", user.psid);
+        console.log("senderPsid passed to getCustomerChatState", user.psid);
 
         try {
-            const customerRef = db.doc(`Tenant/Malaya/Customers/${user.psid}`).get();
+            const customerRef = await rds.collection(`Tenant/Malaya/Customers`).doc(`5289986177691056`).get();
             if (!customerRef.exists) {
-                console.log('No such document!');
-                return null;
+              console.log('No such document!');
             } else {
-                console.log('Document data:', customerData.data());
-                return customerData.data()['state'];
+              console.log('Document data:', customerRef.data());
+              return customerData.data()['state'];
             }
         } catch (error) {
             console.log(error);
