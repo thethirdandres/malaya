@@ -78,7 +78,7 @@ module.exports = class Receive {
     let event = this.webhookEvent;
     let response = [];
 
-    let userState = Repository.getCustomerChatState(this.user);
+    let userState = await Repository.getCustomerChatState(this.user);
     console.log("userState1", userState);
     console.log("location1", this.user.location);
 
