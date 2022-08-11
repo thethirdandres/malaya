@@ -91,7 +91,7 @@ module.exports = class Receive {
         console.log("userState2", userState);
         console.log("this.user.state", this.user.state);
         Repository.updateCustomerChatState(this.user)
-        response.push(await Response.genResponseMessageSequence(userState, this.user));
+        return this.handlePayload(userState);
 
         break;
     
