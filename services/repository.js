@@ -39,7 +39,7 @@ module.exports = class Repository {
         console.log("senderPsid passed to getCustomerChatsenderState", user.psid);
 
         try {
-            const customerRef = db.collection(`Tenant/Malaya/Customers/${user.psid}`).get();
+            const customerRef = db.doc(`Tenant/Malaya/Customers/${user.psid}`).get();
             if (!customerRef.exists) {
                 console.log('No such document!');
                 return null;
