@@ -44,7 +44,7 @@ module.exports = class Repository {
               console.log('No such document!');
             } else {
               console.log('Document data:', customerRef.data());
-              return customerData.data()['state'];
+              return customerRef.data()['state'];
             }
         } catch (error) {
             console.log(error);
