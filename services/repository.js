@@ -24,40 +24,26 @@ module.exports = class Repository {
             customerRef.get().then((customerSnapshot)=>{
                 if(customerSnapshot.exists){
                     customerRef.update({
-                        age_range: "",
-                        customerName: `${user.firstName} ${user.lastName}`,
-                        docId: user.psid,
-                        gender: user.gender,
-                        lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                        location: user.location,
-                        updateDate: admin.firestore.Timestamp.fromDate(new Date()),
+                        state: user.state
                     });
-                } else{
-                    customerRef.set({
-                        age_range: "",
-                        customerName: `${user.firstName} ${user.lastName}`,
-                        docId: user.psid,
-                        gender: user.gender,
-                        lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
-                        location: user.location,
-                        updateDate: admin.firestore.Timestamp.fromDate(new Date()),
-                    });
-                }
+                } 
             })
-
         } catch (error) {
             console.log(error);
             return;
         }
+    }
 
+    static getCustomerChatState(user){
+        console.log("state passed to getCustomerChatState", user.state);
+        console.log("senderPsid passed to getCustomerChatsenderState", user.psid);
         try {
-            const customerRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers/${user.psid}/Conversations`);
-            customerRef.add({
-                "state": user.state,
-                "updateDate": admin.firestore.Timestamp.fromDate(new Date()),
-            });
-            console.log("Added Customers document for", user.psid);
-
+            const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(user.psid);
+            customerRef.get().then((customerSnapshot)=>{
+                if(customerSnapshot.exists){
+                    return customerSnapshot.data().state;
+                } 
+            })
         } catch (error) {
             console.log(error);
             return;

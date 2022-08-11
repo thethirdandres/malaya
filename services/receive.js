@@ -76,12 +76,23 @@ module.exports = class Receive {
     );
 
     let event = this.webhookEvent;
-
-    // check greeting is here and is confident
-    let greeting = this.firstEntity(event.message.nlp, "greetings");
-    let message = event.message.text.trim().toLowerCase();
-
     let response = [];
+
+    let userState = Repository.getCustomerChatState(this.user);
+
+    switch (userState) {
+      case "PROVIDE_LOCATION":
+        this.user.location = this.webhookEvent.message.text;
+        userState = "MENU_EXTENDED";
+        this.user.state = userState;
+        Repository.updateCustomerChatState(this.user)
+        response.push(await Response.genResponseMessageSequence(userState, this.user));
+
+        break;
+    
+      default:
+        break;
+    }
 
     return response;
   }
@@ -94,18 +105,7 @@ module.exports = class Receive {
     let attachment = this.webhookEvent.message.attachments[0];
     console.log("Received attachment:", `${attachment} for ${this.user.psid}`);
 
-    response = TemplateBuilder.genQuickReply(i18n.__("fallback.attachment"), [
-      {
-        title: i18n.__("menu.help"),
-        payload: "CARE_HELP"
-      },
-      {
-        title: i18n.__("menu.start_over"),
-        payload: "GET_STARTED"
-      }
-    ]);
-
-    return response;
+    // return response;
   }
 
   // Handles mesage events with quick replies
@@ -163,11 +163,17 @@ module.exports = class Receive {
       case "Q_BREASTFEED_NO":
         this.user.pillStatus = "";
         break;
-      case "PRE_GET_STARTED_MALE":
+      case "GENDER_MALE":
         this.user.gender = "MALE";
+        this.user.state = "PROVIDE_LOCATION";
         break;
-      case "PRE_GET_STARTED_FEMALE":
+      case "GENDER_FEMALE":
         this.user.gender = "FEMALE";
+        this.user.state = "PROVIDE_LOCATION";
+        break;
+      case "GENDER_NONE":
+        this.user.gender = "";
+        this.user.state = "PROVIDE_LOCATION";
         break;
       case "GET_STARTED_LUZON":
         this.user.location = "LUZON";
@@ -178,13 +184,13 @@ module.exports = class Receive {
       case "GET_STARTED_MINDANAO":
         this.user.location = "MINDANAO";
         break;
-      case "MENU_INITIAL_12":
+      case "AGE_12":
         this.user.age = "0-12";
         break;
-      case "MENU_INITIAL_16":
+      case "AGE_16":
         this.user.age = "13-16";
         break;
-      case "MENU_INITIAL_19":
+      case "AGE_19":
         this.user.age = "17-19";
         break;
       case "ASK_SEXUAL_HEALTH":
@@ -206,7 +212,7 @@ module.exports = class Receive {
     }
 
     
-    // Repository.updateCustomerChatState(this.user);
+    Repository.updateCustomerChatState(this.user);
 
     return await Response.genResponseMessageSequence(payload, this.user);
   }
