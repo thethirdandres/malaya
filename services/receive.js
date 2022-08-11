@@ -79,12 +79,15 @@ module.exports = class Receive {
     let response = [];
 
     let userState = Repository.getCustomerChatState(this.user);
+    console.log("userState1", userState);
 
     switch (userState) {
       case "PROVIDE_LOCATION":
-        this.user.location = this.webhookEvent.message.text;
+        this.user.location = this.webhookEvent.message.text.toUpperCase();
         userState = "MENU_EXTENDED";
         this.user.state = userState;
+        console.log("userState2", userState);
+        console.log("this.user.state", this.user.state);
         Repository.updateCustomerChatState(this.user)
         response.push(await Response.genResponseMessageSequence(userState, this.user));
 
