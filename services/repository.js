@@ -40,10 +40,9 @@ module.exports = class Repository {
 
         try {
             const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(user.psid);
-            customerRef.get().then((customerSnapshot)=>{
-                if(customerSnapshot.exists){
-                    return customerSnapshot.data().state;
-                } 
+            customerRef.get().forEach(async doc => {
+                console.log("doc.data().state:", doc.data().state);
+                return doc.data().state
             })
         } catch (error) {
             console.log(error);
@@ -148,9 +147,6 @@ module.exports = class Repository {
                         } 
                     })
                 }
-
-                console.log("user subtopic", user.subtopic);
-                console.log("IS IT BLANK?", user.subtopic === "");
 
                 if(user.subtopic !== "") {
                     let customerTopicRef = db.collection(`Tenant/Malaya/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
