@@ -170,15 +170,21 @@ module.exports = class Receive {
         break;
       case "GENDER_MALE":
         this.user.gender = "male";
-        this.user.state = "PROVIDE_LOCATION";
         break;
       case "GENDER_FEMALE":
         this.user.gender = "female";
-        this.user.state = "PROVIDE_LOCATION";
         break;
       case "GENDER_NONE":
         this.user.gender = "";
-        this.user.state = "PROVIDE_LOCATION";
+        break;
+      case "LOCATION_LUZON":
+        this.user.location = "LUZON";
+        break;
+      case "LOCATION_VISAYAS":
+        this.user.location = "VISAYAS";
+        break;
+      case "LOCATION_MINDANAO":
+        this.user.location = "MINDANAO";
         break;
       case "AGE_12":
         this.user.age = "0-12";
