@@ -21,13 +21,12 @@ module.exports = class {
             case "CLOSE_IMPLANT":
             case "CLOSE_PREGNANCY":
             case "CLOSE_PUBERTY":
-            case "GU_P_REGULAR":
-            case "GU_P_REGULAR_20":
-            case "GU_P_REGULAR_30":
                 msgParamList.push(user.firstName);
                 break;
             
             case "GU_P_REGULAR":
+            case "GU_P_REGULAR_20":
+            case "GU_P_REGULAR_30":
                 msgParamList.push(user.age);
                 break;
              
