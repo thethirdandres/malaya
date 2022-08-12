@@ -171,17 +171,14 @@ module.exports = class Receive {
       case "GENDER_MALE":
         this.user.gender = "male";
         this.user.state = "PROVIDE_LOCATION";
-        Repository.updateCustomerChatState = this.user.state;
         break;
       case "GENDER_FEMALE":
         this.user.gender = "female";
         this.user.state = "PROVIDE_LOCATION";
-        Repository.updateCustomerChatState = this.user.state;
         break;
       case "GENDER_NONE":
         this.user.gender = "";
         this.user.state = "PROVIDE_LOCATION";
-        Repository.updateCustomerChatState = this.user.state;
         break;
       case "AGE_12":
         this.user.age = "0-12";
