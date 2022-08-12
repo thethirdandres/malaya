@@ -34,16 +34,17 @@ module.exports = class Repository {
         }
     }
 
-    static getCustomerChatState(user){
+    static async getCustomerChatState(user){
         console.log("state passed to getCustomerChatState", user.state);
-        console.log("senderPsid passed to getCustomerChatsenderState", user.psid);
+        console.log("senderPsid passed to getCustomerChatState", user.psid);
         try {
-            const customerRef = db.collection(`Tenant/Malaya/Customers`).doc(user.psid);
-            customerRef.get().then((customerSnapshot)=>{
-                if(customerSnapshot.exists){
-                    return customerSnapshot.data().state;
-                } 
-            })
+            const customerRef = await db.collection(`Tenant/Malaya/Customers`).doc(`5289986177691056`).get();
+            if (!customerRef.exists) {
+              console.log('No such document!');
+            } else {
+              console.log('Document data:', customerRef.data());
+              return customerRef.data()['state'];
+            }
         } catch (error) {
             console.log(error);
             return;
@@ -147,9 +148,6 @@ module.exports = class Repository {
                         } 
                     })
                 }
-
-                console.log("user subtopic", user.subtopic);
-                console.log("IS IT BLANK?", user.subtopic === "");
 
                 if(user.subtopic !== "") {
                     let customerTopicRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
