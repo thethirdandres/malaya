@@ -199,6 +199,16 @@ module.exports = class Receive {
         this.user.topic = "Sexual Health";
         this.user.subtopic = "";
         break;
+      case "ASK_GROWING_UP":
+        this.user.topic = "Growing Up";
+        this.user.subtopic = "";
+        break;
+      case "GU_PERIOD":
+        this.user.subtopic = "Menstruation";
+        break;
+      case "GU_PUBERTY":
+        this.user.subtopic = "Puberty";
+        break;
       case "SH_CONTRACEPTIVES":
         this.user.subtopic = "Contraceptives";
         break;
