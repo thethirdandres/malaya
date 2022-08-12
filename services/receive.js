@@ -187,6 +187,7 @@ module.exports = class Receive {
         this.user.age = "13-16";
         break;
       case "AGE_19":
+      case "GU_P_REGULAR":
         this.user.age = "17-19";
         break;
       case "GU_P_REGULAR_20":
