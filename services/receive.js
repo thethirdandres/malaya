@@ -84,9 +84,10 @@ module.exports = class Receive {
       case "SH_PREGNANCY_QUESTIONS":
         let message = event.message.text.toUpperCase();
         if(message == "CLOSE") {
-          this.user.state = "CLOSE";
+          userState = "CLOSE"
+          this.user.state = userState;
           Repository.updateCustomerChatState(this.user);
-          return this.handlePayload(this.user.state);
+          return this.handlePayload(userState);
         }
         break;
     
