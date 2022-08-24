@@ -221,7 +221,8 @@ module.exports = class Receive {
         this.user.subtopic = "Sexually Transmitted Diseases";
         break;
       case "SH_PREGNANCY_QUESTIONS":
-        console.log("User is asking customized question.");
+        console.log("User is asking a customized question.");
+        this.user.state = "SH_PREGNANCY_QUESTIONS";
         break;
     
       default:
