@@ -79,20 +79,15 @@ module.exports = class Receive {
     let response = [];
 
     let userState = await Repository.getCustomerChatState(this.user);
-    console.log("userState1", userState);
-    console.log("location1", this.user.location);
 
     switch (userState) {
-      case "PROVIDE_LOCATION":
-        this.user.location = event.message.text.toUpperCase();
-        console.log("location2", this.user.location);
-        userState = "MENU_EXTENDED";
-        this.user.state = userState;
-        console.log("userState2", userState);
-        console.log("this.user.state", this.user.state);
-        Repository.updateCustomerChatState(this.user)
-        return this.handlePayload(userState);
-
+      case "SH_PREGNANCY_QUESTIONS":
+        let message = event.message.text.toUpperCase();
+        if(message == "CLOSE") {
+          this.user.state = "CLOSE";
+          Repository.updateCustomerChatState(this.user);
+          return this.handlePayload(this.user.state);
+        }
         break;
     
       default:
@@ -224,6 +219,9 @@ module.exports = class Receive {
         break;
       case "SH_STI":
         this.user.subtopic = "Sexually Transmitted Diseases";
+        break;
+      case "SH_PREGNANCY_QUESTIONS":
+        console.log("User is asking customized question.");
         break;
     
       default:
