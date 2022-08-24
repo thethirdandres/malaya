@@ -82,8 +82,10 @@ module.exports = class Receive {
 
     switch (userState) {
       case "SH_PREGNANCY_QUESTIONS":
+        console.log("still inside SH_PREGNANCY_QUESTIONS");
         let message = event.message.text.toUpperCase();
         if(message == "CLOSE") {
+          console.log("message == close");
           userState = "CLOSE"
           this.user.state = userState;
           Repository.updateCustomerChatState(this.user);
