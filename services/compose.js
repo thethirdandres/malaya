@@ -22,9 +22,6 @@ module.exports = class {
             case "CLOSE_IMPLANT":
             case "CLOSE_PREGNANCY":
             case "CLOSE_PUBERTY":
-                msgParamList.push(user.firstName);
-                break;
-
             case "LOCATION_NORTHERNLUZON":
             case "LOCATION_CENTRALLUZON":
             case "LOCATION_NCR":
@@ -36,6 +33,15 @@ module.exports = class {
             case "LOCATION_SOUTHERNMINDANAO":
             case "LOCATION_OUTSIDETHEPHILIPPINES":
             case "LOCATION_NONE":
+                msgParamList.push(user.firstName);
+                break;
+
+            
+            case "GENDER_MALE":
+            case "GENDER_FEMALE":
+            case "GENDER_NONBINARY":
+            case "GENDER_TRANSGENDER":
+            case "GENDER_NONE":
                 msgParamList.push(genderBasedAddress);
                 break;
             
