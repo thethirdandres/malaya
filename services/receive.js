@@ -172,17 +172,47 @@ module.exports = class Receive {
       case "GENDER_FEMALE":
         this.user.gender = "female";
         break;
+      case "GENDER_NONBINARY":
+        this.user.gender = "nonbinary";
+        break;
+      case "GENDER_TRANSGENDER":
+        this.user.gender = "transgender";
+        break;
       case "GENDER_NONE":
         this.user.gender = "";
         break;
-      case "LOCATION_LUZON":
-        this.user.location = "LUZON";
+      case "LOCATION_NORTHERNLUZON":
+        this.user.location = "NORTHERN LUZON";
         break;
-      case "LOCATION_VISAYAS":
-        this.user.location = "VISAYAS";
+      case "LOCATION_CENTRALLUZON":
+        this.user.location = "CENTRAL LUZON";
         break;
-      case "LOCATION_MINDANAO":
-        this.user.location = "MINDANAO";
+      case "LOCATION_NCR":
+        this.user.location = "NCR";
+        break;
+      case "LOCATION_SOUTHERNLUZON":
+        this.user.location = "SOUTHERN LUZON";
+        break;
+      case "LOCATION_EASTERNVISAYAS":
+        this.user.location = "EASTERN VISAYAS";
+        break;
+      case "LOCATION_WESTERNVISAYAS":
+        this.user.location = "WESTERN VISAYAS";
+        break;
+      case "LOCATION_NORTHERNMINDANAO":
+        this.user.location = "NORTHERN MINDANAO";
+        break;
+      case "LOCATION_CENTRALMINDANAO":
+        this.user.location = "CENTRAL MINDANAO";
+        break;
+      case "LOCATION_SOUTHERNMINDANAO":
+        this.user.location = "SOUTHERN MINDANAO";
+        break;
+      case "LOCATION_OUTSIDETHEPHILIPPINES":
+        this.user.location = "OUTSIDE THE PHILIPPINES";
+        break;
+      case "LOCATION_NONE":
+        this.user.location = "";
         break;
       case "AGE_12":
         this.user.age = "0-12";
