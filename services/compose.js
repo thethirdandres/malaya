@@ -8,9 +8,6 @@ module.exports = class {
         let genderBasedAddress = user.gender == "male" ? "pre" : user.gender == "female" ? "sis" : user.gender == "nonbinary" ? "lods" : user.gender == "transgender" ? "beshie" : "friend"; 
         switch (payload) {
             case "GET_STARTED":
-            case "AGE_12":
-            case "AGE_16":
-            case "AGE_19":
             case "MENU_EXTENDED":
             case "BC_QUIZ":
             case "CLOSE":
