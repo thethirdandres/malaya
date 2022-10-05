@@ -39,6 +39,8 @@ module.exports = class {
             case "GENDER_NONBINARY":
             case "GENDER_TRANSGENDER":
             case "GENDER_NONE":
+                console.log("genderBasedAddress", genderBasedAddress);
+                console.log("user.gender", user.gender);
                 msgParamList.push(genderBasedAddress);
                 break;
             
