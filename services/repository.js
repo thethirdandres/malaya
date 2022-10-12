@@ -24,7 +24,7 @@ module.exports = class Repository {
             customerRef.get().then((customerSnapshot)=>{
                 if(customerSnapshot.exists){
                     customerRef.update({
-                        state: user.state
+                        state: user.state ? user.state : ""
                     });
                 } 
             })
