@@ -38,7 +38,22 @@ module.exports = class Builder {
           template_type: "generic",
           image_aspect_ratio: "square",
           elements: elementList
-        }
+        }      
+      }
+    };
+
+    return response;
+}
+  static async genGenericTemplateWithPersona(elementList, personaId) {
+    let response = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          image_aspect_ratio: "square",
+          elements: elementList
+        },
+        persona_id: personaId
       }
     };
 
@@ -94,7 +109,7 @@ module.exports = class Builder {
           template_type: "button",
           text: title,
           buttons: buttons
-        }
+        },
       }
     };
 
@@ -239,7 +254,7 @@ module.exports = class Builder {
           );
         });
 
-        return this.genGenericTemplate(elementGenericTemplateResponse);
+        return this.genGenericTemplateWithPersona(elementGenericTemplateResponse, 514547546794889);
 
       case "QUICK_REPLIES":
         let repliesElementList = sequence['elements'].sort(function(a, b) {
