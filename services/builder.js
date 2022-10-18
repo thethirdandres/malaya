@@ -30,24 +30,6 @@ module.exports = class Builder {
     return response;
   }
 
-  static genQuickReplyWithPersona(text, quickReplies, personaId) {
-    let response = {
-      text: text,
-      quick_replies: [],
-      persona_id: personaId
-    };
-
-    for (let quickReply of quickReplies) {
-      response["quick_replies"].push({
-        content_type: "text",
-        title: quickReply["title"],
-        payload: quickReply["payload"]
-      });
-    }
-
-    return response;
-  }
-
   static async genGenericTemplate(elementList) {
     let response = {
       attachment: {
@@ -269,7 +251,7 @@ module.exports = class Builder {
         console.log(sequence['message']);
         console.log(repliesElementList);
 
-        return this.genQuickReplyWithPersona(message, repliesElementList, 514547546794889);
+        return this.genQuickReply(message, repliesElementList);
 
       default:
         return;
