@@ -70,9 +70,9 @@ module.exports = class Builder {
           template_type: "generic",
           image_aspect_ratio: "square",
           elements: elementList
-        },
-        persona_id: personaId
-      }
+        }
+      },
+      persona_id: personaId
     };
 
     return response;
@@ -129,21 +129,6 @@ module.exports = class Builder {
           buttons: buttons
         },
       }
-    };
-
-    return response;
-  }
-  static genButtonTemplateWithPersona(title, buttons, personaId) {
-    let response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: title,
-          buttons: buttons
-        },
-      },
-      persona_id: personaId
     };
 
     return response;
