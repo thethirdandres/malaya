@@ -62,21 +62,6 @@ module.exports = class Builder {
 
     return response;
 }
-  static async genGenericTemplateWithPersona(elementList, personaId) {
-    let response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          image_aspect_ratio: "square",
-          elements: elementList
-        },
-        persona_id: personaId
-      }
-    };
-
-    return response;
-}
 
   static genRecurringNotificationsTemplate(
     image_url,
@@ -272,7 +257,7 @@ module.exports = class Builder {
           );
         });
 
-        return this.genGenericTemplateWithPersona(elementGenericTemplateResponse, 514547546794889);
+        return this.genGenericTemplate(elementGenericTemplateResponse);
 
       case "QUICK_REPLIES":
         let repliesElementList = sequence['elements'].sort(function(a, b) {
