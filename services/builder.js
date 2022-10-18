@@ -188,7 +188,8 @@ module.exports = class Builder {
     let buttons = [];
     switch (sequence['message_type']) {
       case "SIMPLE_TEXT":
-        return this.genText(message);
+        // return this.genText(message);
+        return this.genTextWithPersona(message, "514547546794889");
 
       case "BUTTON_PAYLOAD":
 
