@@ -30,6 +30,24 @@ module.exports = class Builder {
     return response;
   }
 
+  static genQuickReplyWithPersona(text, quickReplies, personaId) {
+    let response = {
+      text: text,
+      quick_replies: [],
+      persona_id: personaId
+    };
+
+    for (let quickReply of quickReplies) {
+      response["quick_replies"].push({
+        content_type: "text",
+        title: quickReply["title"],
+        payload: quickReply["payload"]
+      });
+    }
+
+    return response;
+  }
+
   static async genGenericTemplate(elementList) {
     let response = {
       attachment: {
@@ -39,6 +57,21 @@ module.exports = class Builder {
           image_aspect_ratio: "square",
           elements: elementList
         }      
+      }
+    };
+
+    return response;
+}
+  static async genGenericTemplateWithPersona(elementList, personaId) {
+    let response = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          image_aspect_ratio: "square",
+          elements: elementList
+        },
+        persona_id: personaId
       }
     };
 
@@ -96,6 +129,21 @@ module.exports = class Builder {
           buttons: buttons
         },
       }
+    };
+
+    return response;
+  }
+  static genButtonTemplateWithPersona(title, buttons, personaId) {
+    let response = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: title,
+          buttons: buttons
+        },
+      },
+      persona_id: personaId
     };
 
     return response;
@@ -239,7 +287,7 @@ module.exports = class Builder {
           );
         });
 
-        return this.genGenericTemplate(elementGenericTemplateResponse);
+        return this.genGenericTemplateWithPersona(elementGenericTemplateResponse, 514547546794889);
 
       case "QUICK_REPLIES":
         let repliesElementList = sequence['elements'].sort(function(a, b) {
@@ -251,7 +299,7 @@ module.exports = class Builder {
         console.log(sequence['message']);
         console.log(repliesElementList);
 
-        return this.genQuickReply(message, repliesElementList);
+        return this.genQuickReplyWithPersona(message, repliesElementList, 514547546794889);
 
       default:
         return;
