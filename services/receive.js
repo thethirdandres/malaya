@@ -122,7 +122,7 @@ module.exports = class Receive {
   // Handles postbacks events
   async handlePostback() {
     let postback = this.webhookEvent.postback;
-    let responses;
+    let responses = [];
     // Check for the special Get Starded with referral
     let payload;
     if (postback.referral && postback.referral.type == "OPEN_THREAD") {
@@ -133,8 +133,8 @@ module.exports = class Receive {
       payload = postback.payload;
     }
 
+    responses.push({"persona_id": "514547546794889"});
     responses.push(await this.handlePayload(payload.toUpperCase()));
-    responses.push({"persona_id": 514547546794889});
     return responses;
   }
 
