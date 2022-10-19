@@ -7,29 +7,26 @@ module.exports = class {
         let msgParamList = [];
         let genderBasedAddress = user.gender == "male" ? "pre" : user.gender == "female" ? "sis" : user.gender == "nonbinary" ? "lods" : user.gender == "transgender" ? "beshie" : "friend"; 
         switch (payload) {
-            case "GET_STARTED":
-            case "MENU_EXTENDED":
-            case "BC_QUIZ":
+            case "GENDER_MALE":
+            case "GENDER_FEMALE":
+            case "GENDER_NONBINARY":
+            case "GENDER_TRANSGENDER":
+            case "GENDER_NONE":
+            case "CLOSE_MH_SELF":
+            case "CLOSE_MH_PROBLEMS":
+            case "CLOSE_RELATIONSHIPS":
+            case "CLOSE_GROWING_UP":
+            case "CLOSE_PUBERTY":
             case "CLOSE":
+            case "CLOSE_STI":
             case "CLOSE_PERIOD":
             case "CLOSE_PILLS":
-            case "CLOSE_IUD":
             case "CLOSE_DMPA":
-            case "CLOSE_CONDOM":
+            case "CLOSE_IUD":
             case "CLOSE_IMPLANT":
+            case "CLOSE_CONDOM":
             case "CLOSE_PREGNANCY":
-            case "CLOSE_PUBERTY":
-            case "LOCATION_NORTHERNLUZON":
-            case "LOCATION_CENTRALLUZON":
-            case "LOCATION_NCR":
-            case "LOCATION_SOUTHERNLUZON":
-            case "LOCATION_EASTERNVISAYAS":
-            case "LOCATION_WESTERNVISAYAS":
-            case "LOCATION_NORTHERNMINDANAO":
-            case "LOCATION_CENTRALMINDANAO":
-            case "LOCATION_SOUTHERNMINDANAO":
-            case "LOCATION_OUTSIDETHEPHILIPPINES":
-            case "LOCATION_NONE":
+            case "BC_QUIZ":
                 msgParamList.push(user.firstName);
                 break;
 
@@ -45,6 +42,7 @@ module.exports = class {
                 break;
             
             case "GU_P_REGULAR":
+            case "GU_P_REGULAR_19":
             case "GU_P_REGULAR_20":
             case "GU_P_REGULAR_30":
                 msgParamList.push(user.age);

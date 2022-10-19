@@ -227,7 +227,7 @@ module.exports = class Receive {
         this.user.age = "19+";
         break;
       case "GU_P_REGULAR_19":
-        this.user.age = "15-18";
+        this.user.age = "0-18";
         break;
       case "GU_P_REGULAR_20":
         this.user.age = "19-29";
@@ -243,11 +243,13 @@ module.exports = class Receive {
         this.user.topic = "Growing Up";
         this.user.subtopic = "";
         break;
-      case "GU_PERIOD":
-        this.user.subtopic = "Menstruation";
+      case "ASK_MENTAL_HEALTH":
+        this.user.topic = "Mental Health";
+        this.user.subtopic = "";
         break;
-      case "GU_PUBERTY":
-        this.user.subtopic = "Puberty";
+      case "ASK_RELATIONSHIPS":
+        this.user.topic = "Relationships";
+        this.user.subtopic = "";
         break;
       case "SH_CONTRACEPTIVES":
         this.user.subtopic = "Contraceptives";
@@ -257,6 +259,30 @@ module.exports = class Receive {
         break;
       case "SH_STI":
         this.user.subtopic = "Sexually Transmitted Diseases";
+        break;
+      case "MH_SELF":
+        this.user.subtopic = "Self-Love and Self-Care";
+        break;
+      case "MH_PROBLEMS":
+        this.user.subtopic = "Mental Health Problems";
+        break;
+      case "GU_PERIOD":
+        this.user.subtopic = "Regla";
+        break;
+      case "GU_PUBERTY":
+        this.user.subtopic = "Puberty";
+        break;
+      case "GU_HEALTH":
+        this.user.subtopic = "Kalusugan";
+        break;
+      case "R_FRIENDSHIP":
+        this.user.subtopic = "Friendship";
+        break;
+      case "R_ROMANTIC":
+        this.user.subtopic = "Romantic Relationships";
+        break;
+      case "R_FAMILY":
+        this.user.subtopic = "Family Relationships";
         break;
       case "SH_PREGNANCY_QUESTIONS":
         console.log("User is asking a customized question.");
