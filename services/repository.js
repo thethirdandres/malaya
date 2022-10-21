@@ -35,10 +35,8 @@ module.exports = class Repository {
     }
 
     static async getCustomerChatState(user){
-        console.log("state passed to getCustomerChatState", user.state);
-        console.log("senderPsid passed to getCustomerChatState", user.psid);
         try {
-            const customerRef = await db.collection(`Tenant/Malaya/Customers`).doc(`5289986177691056`).get();
+            const customerRef = await db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers`).doc(user.psid).get();
             if (!customerRef.exists) {
               console.log('No such document!');
             } else {

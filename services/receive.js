@@ -79,20 +79,18 @@ module.exports = class Receive {
     let response = [];
 
     let userState = await Repository.getCustomerChatState(this.user);
-    console.log("userState1", userState);
-    console.log("location1", this.user.location);
 
     switch (userState) {
-      case "PROVIDE_LOCATION":
-        this.user.location = event.message.text.toUpperCase();
-        console.log("location2", this.user.location);
-        userState = "MENU_EXTENDED";
-        this.user.state = userState;
-        console.log("userState2", userState);
-        console.log("this.user.state", this.user.state);
-        Repository.updateCustomerChatState(this.user)
-        return this.handlePayload(userState);
-
+      case "SH_PREGNANCY_QUESTIONS":
+        console.log("still inside SH_PREGNANCY_QUESTIONS");
+        let message = event.message.text.toUpperCase();
+        if(message == "CLOSE") {
+          console.log("message == close");
+          userState = "CLOSE"
+          this.user.state = userState;
+          Repository.updateCustomerChatState(this.user);
+          return this.handlePayload(userState);
+        }
         break;
     
       default:
@@ -174,30 +172,65 @@ module.exports = class Receive {
       case "GENDER_FEMALE":
         this.user.gender = "female";
         break;
+      case "GENDER_NONBINARY":
+        this.user.gender = "nonbinary";
+        break;
+      case "GENDER_TRANSGENDER":
+        this.user.gender = "transgender";
+        break;
       case "GENDER_NONE":
         this.user.gender = "";
         break;
-      case "LOCATION_LUZON":
-        this.user.location = "LUZON";
+      case "LOCATION_NORTHERNLUZON":
+        this.user.location = "NORTHERN LUZON";
         break;
-      case "LOCATION_VISAYAS":
-        this.user.location = "VISAYAS";
+      case "LOCATION_CENTRALLUZON":
+        this.user.location = "CENTRAL LUZON";
         break;
-      case "LOCATION_MINDANAO":
-        this.user.location = "MINDANAO";
+      case "LOCATION_NCR":
+        this.user.location = "NCR";
+        break;
+      case "LOCATION_SOUTHERNLUZON":
+        this.user.location = "SOUTHERN LUZON";
+        break;
+      case "LOCATION_EASTERNVISAYAS":
+        this.user.location = "EASTERN VISAYAS";
+        break;
+      case "LOCATION_WESTERNVISAYAS":
+        this.user.location = "WESTERN VISAYAS";
+        break;
+      case "LOCATION_NORTHERNMINDANAO":
+        this.user.location = "NORTHERN MINDANAO";
+        break;
+      case "LOCATION_CENTRALMINDANAO":
+        this.user.location = "CENTRAL MINDANAO";
+        break;
+      case "LOCATION_SOUTHERNMINDANAO":
+        this.user.location = "SOUTHERN MINDANAO";
+        break;
+      case "LOCATION_OUTSIDETHEPHILIPPINES":
+        this.user.location = "OUTSIDE THE PHILIPPINES";
+        break;
+      case "LOCATION_NONE":
+        this.user.location = "";
         break;
       case "AGE_12":
         this.user.age = "0-12";
         break;
-      case "AGE_16":
-        this.user.age = "13-16";
+      case "AGE_15":
+        this.user.age = "13-15";
+        break;
+      case "AGE_18":
+        this.user.age = "15-18";
         break;
       case "AGE_19":
+        this.user.age = "19+";
+        break;
       case "GU_P_REGULAR_19":
-        this.user.age = "17-19";
+        this.user.age = "0-18";
         break;
       case "GU_P_REGULAR_20":
-        this.user.age = "20-29";
+        this.user.age = "19-29";
         break;
       case "GU_P_REGULAR_30":
         this.user.age = "30+";
@@ -210,11 +243,13 @@ module.exports = class Receive {
         this.user.topic = "Growing Up";
         this.user.subtopic = "";
         break;
-      case "GU_PERIOD":
-        this.user.subtopic = "Menstruation";
+      case "ASK_MENTAL_HEALTH":
+        this.user.topic = "Mental Health";
+        this.user.subtopic = "";
         break;
-      case "GU_PUBERTY":
-        this.user.subtopic = "Puberty";
+      case "ASK_RELATIONSHIPS":
+        this.user.topic = "Relationships";
+        this.user.subtopic = "";
         break;
       case "SH_CONTRACEPTIVES":
         this.user.subtopic = "Contraceptives";
@@ -224,6 +259,34 @@ module.exports = class Receive {
         break;
       case "SH_STI":
         this.user.subtopic = "Sexually Transmitted Diseases";
+        break;
+      case "MH_SELF":
+        this.user.subtopic = "Self-Love and Self-Care";
+        break;
+      case "MH_PROBLEMS":
+        this.user.subtopic = "Mental Health Problems";
+        break;
+      case "GU_PERIOD":
+        this.user.subtopic = "Regla";
+        break;
+      case "GU_PUBERTY":
+        this.user.subtopic = "Puberty";
+        break;
+      case "GU_HEALTH":
+        this.user.subtopic = "Kalusugan";
+        break;
+      case "R_FRIENDSHIP":
+        this.user.subtopic = "Friendship";
+        break;
+      case "R_ROMANTIC":
+        this.user.subtopic = "Romantic Relationships";
+        break;
+      case "R_FAMILY":
+        this.user.subtopic = "Family Relationships";
+        break;
+      case "SH_PREGNANCY_QUESTIONS":
+        console.log("User is asking a customized question.");
+        this.user.state = "SH_PREGNANCY_QUESTIONS";
         break;
     
       default:
