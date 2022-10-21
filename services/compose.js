@@ -7,11 +7,6 @@ module.exports = class {
         let msgParamList = [];
         let genderBasedAddress = user.gender == "male" ? "pre" : user.gender == "female" ? "sis" : user.gender == "nonbinary" ? "lods" : user.gender == "transgender" ? "beshie" : "friend"; 
         switch (payload) {
-            case "GENDER_MALE":
-            case "GENDER_FEMALE":
-            case "GENDER_NONBINARY":
-            case "GENDER_TRANSGENDER":
-            case "GENDER_NONE":
             case "CLOSE_MH_SELF":
             case "CLOSE_MH_PROBLEMS":
             case "CLOSE_RELATIONSHIPS":
