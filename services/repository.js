@@ -36,7 +36,7 @@ module.exports = class Repository {
 
     static async getCustomerChatState(user){
         try {
-            const customerRef = await db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers`).doc(user.psid).get();
+            const customerRef = await db.collection(`Tenant/Malaya/Customers`).doc(user.psid).get();
             if (!customerRef.exists) {
               console.log('No such document!');
             } else {
