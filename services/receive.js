@@ -94,7 +94,8 @@ module.exports = class Receive {
         break;
     
       default:
-        break;
+        console.log("User entered an unrecognized inquiry, displaying error message");
+        return this.handlePayload("ERROR_MSG");
     }
 
     return response;
