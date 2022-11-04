@@ -86,17 +86,20 @@ module.exports = class Receive {
         let message = event.message.text.toUpperCase();
         if(message == "CLOSE") {
           console.log("message == close");
-          userState = "CLOSE"
+          userState = "CLOSE";
           this.user.state = userState;
           Repository.updateCustomerChatState(this.user);
           return this.handlePayload(userState);
         }
         break;
-      
+        
       case "ERROR_MSG":
         console.log("User entered an unrecognized inquiry twice. displaying error message.");
+        return this.handlePayload("ERROR_MSG_2");
+
+      case "ERROR_MSG_2":
+        console.log("Bot entered quiet mode");
         return this.handlePayload("");
-        break;
     
       default:
         console.log("User entered an unrecognized inquiry, displaying error message");
