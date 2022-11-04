@@ -92,6 +92,11 @@ module.exports = class Receive {
           return this.handlePayload(userState);
         }
         break;
+      
+      case "ERROR_MSG":
+        console.log("User entered an unrecognized inquiry twice. displaying error message.");
+        return this.handlePayload("");
+        break;
     
       default:
         console.log("User entered an unrecognized inquiry, displaying error message");
