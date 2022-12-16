@@ -20,7 +20,7 @@ module.exports = class Repository {
         console.log("senderPsid passed to updateCustomerChatsenderState", user.psid);
 
         try {
-            const customerRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers`).doc(user.psid);
+            const customerRef = db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Customers`).doc(user.psid);
             customerRef.get().then((customerSnapshot)=>{
                 if(customerSnapshot.exists){
                     customerRef.update({
@@ -36,7 +36,7 @@ module.exports = class Repository {
 
     static async getCustomerChatState(user){
         try {
-            const customerRef = await db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers`).doc(user.psid).get();
+            const customerRef = await db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Customers`).doc(user.psid).get();
             if (!customerRef.exists) {
               console.log('No such document!');
             } else {
@@ -109,7 +109,7 @@ module.exports = class Repository {
             lastMessage = textMsg == "" ? `Received ${receivedType}` : textMsg;
 
             try {
-                const customerRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers`).doc(user.psid);
+                const customerRef = db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Customers`).doc(user.psid);
                 customerRef.get().then((customerSnapshot)=>{
                     if(customerSnapshot.exists){
                         customerRef.update({
@@ -133,7 +133,7 @@ module.exports = class Repository {
                 })
 
                 if(mid && mid !== "") {
-                    const customerConvoRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Customers/${user.psid}/Conversations`).doc(mid);
+                    const customerConvoRef = db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Customers/${user.psid}/Conversations`).doc(mid);
                     customerConvoRef.get().then((convoSnap)=>{
                         if(!convoSnap.exists){
                             customerConvoRef.set({
@@ -148,10 +148,10 @@ module.exports = class Repository {
                 }
 
                 if(user.subtopic !== "") {
-                    let customerTopicRef = db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
+                    let customerTopicRef = db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
                     let customerDoc = await customerTopicRef.get();
                     if(customerDoc.empty) {
-                        await db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Topics`).add({
+                        await db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Topics`).add({
                             firstName: user.firstName,
                             lastName: user.lastName,
                             psid: user.psid,
@@ -166,7 +166,7 @@ module.exports = class Repository {
                         })
                     } else {
                         customerDoc.forEach(async doc => {
-                          await db.collection(`Tenant/b8Z5BYCCH9k1yL2hb70u/Topics`).doc(doc.data().docId).update({
+                          await db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Topics`).doc(doc.data().docId).update({
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                           })
                         })
