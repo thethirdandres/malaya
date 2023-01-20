@@ -21,6 +21,8 @@ module.exports = class {
             case "CLOSE_IMPLANT":
             case "CLOSE_CONDOM":
             case "CLOSE_PREGNANCY":
+            case "CLOSE_SOGIE":
+            case "CLOSE_COVID":
             case "BC_QUIZ":
                 msgParamList.push(user.firstName);
                 break;
