@@ -252,6 +252,26 @@ module.exports = class Receive {
         this.user.topic = "Relationships";
         this.user.subtopic = "";
         break;
+      case "ASK_SOGIESC":
+        this.user.topic = "SOGIESC";
+        this.user.subtopic = "";
+        break;
+      case "ASK_COVID":
+        this.user.topic = "Covid";
+        this.user.subtopic = "";
+        break;
+      case "SOGIE_GI":
+        this.user.subtopic = "Gender Identity";
+        break;
+      case "SOGIE_SO":
+        this.user.subtopic = "Sexual Orientation";
+        break;
+      case "SOGIE_GE":
+        this.user.subtopic = "Gender Expression";
+        break;
+      case "SOGIE_IBA":
+        this.user.subtopic = "Others";
+        break;
       case "SH_CONTRACEPTIVES":
         this.user.subtopic = "Contraceptives";
         break;
