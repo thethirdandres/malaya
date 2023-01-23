@@ -258,7 +258,7 @@ module.exports = class Receive {
         break;
       case "ASK_COVID":
         this.user.topic = "Covid";
-        this.user.subtopic = "";
+        this.user.subtopic = "Covid";
         break;
       case "SOGIE_GI":
         this.user.subtopic = "Gender Identity";
