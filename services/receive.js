@@ -134,7 +134,11 @@ module.exports = class Receive {
     // Check for the special Get Starded with referral
     let payload;
     if (postback.referral && postback.referral.type == "OPEN_THREAD") {
-      payload = postback.referral.ref;
+      if(postback.referral.ref != null) {
+        payload = postback.referral.ref;
+      } else {
+        payload = postback.payload;
+      }
 
     } else if (postback.payload) {
       // Get the payload of the postback

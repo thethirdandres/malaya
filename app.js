@@ -158,6 +158,7 @@ app.post("/webhook", (req, res) => {
                   );
                 });
             } else {
+              console.log("Profile is guest");
               setDefaultUser(senderPsid);
               return receiveAndReturn(users[senderPsid], webhookEvent, false);
             }
