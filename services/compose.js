@@ -5,7 +5,8 @@ const TemplateBuilder = require("./builder");
 module.exports = class {
     static composeMsgParam(payload, user){
         let msgParamList = [];
-        let genderBasedAddress = user.gender == "male" ? "pre" : user.gender == "female" ? "sis" : user.gender == "nonbinary" ? "lods" : user.gender == "transgender" ? "beshie" : "friend"; 
+        let genderBasedAddress = user.gender == "male" ? " pre" : user.gender == "female" ? " sis" : user.gender == "nonbinary" ? " lods" : user.gender == "transgender" ? " beshie" : " friend"; 
+        let comma = ", ";
         switch (payload) {
             case "CLOSE_MH_SELF":
             case "CLOSE_MH_PROBLEMS":
@@ -24,7 +25,7 @@ module.exports = class {
             case "CLOSE_SOGIE":
             case "CLOSE_COVID":
             case "BC_QUIZ":
-                msgParamList.push(user.firstName);
+                msgParamList.push(comma.concat(user.firstName));
                 break;
 
             
