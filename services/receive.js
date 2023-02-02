@@ -100,7 +100,7 @@ module.exports = class Receive {
       case "ERROR_MSG_2":
       case "TALK":
         console.log("Bot entered quiet mode");
-        return this.handlePayload("ERROR_MSG_2");
+        return this.handlePayload("TALK");
     
       default:
         console.log("User entered an unrecognized inquiry, displaying error message");
