@@ -147,7 +147,7 @@ module.exports = class Repository {
                     })
                 }
 
-                if(user.subtopic !== "") {
+                if(user.subtopic !== "" && user.topic !== "") {
                     let customerTopicRef = db.collection(`Tenant/Jrxnl9ZwMOiNEOsKcx3p/Topics`).where("psid", "==", user.psid).where("subtopic", "==", user.subtopic);
                     let customerDoc = await customerTopicRef.get();
                     if(customerDoc.empty) {

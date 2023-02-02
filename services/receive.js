@@ -318,8 +318,12 @@ module.exports = class Receive {
         this.user.subtopic = "Family Relationships";
         break;
       case "SH_PREGNANCY_QUESTIONS":
-        console.log("User is asking a customized question.");
+        console.log("User is asking a customized pregnancy question.");
         this.user.state = "SH_PREGNANCY_QUESTIONS";
+        break;
+      case "TALK":
+        console.log("User is asking a customized question.");
+        this.user.state = "TALK";
         break;
     
       default:
