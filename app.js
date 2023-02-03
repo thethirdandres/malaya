@@ -163,12 +163,12 @@ app.post("/webhook", (req, res) => {
               return receiveAndReturn(users[senderPsid], webhookEvent, false);
             }
           } else {
-            i18n.setLocale(users[senderPsid].locale);
+            // i18n.setLocale(users[senderPsid].locale);
             console.log(
               "Profile already exists PSID:",
               senderPsid,
               "with locale:",
-              i18n.getLocale()
+              // i18n.getLocale()
             );
             return receiveAndReturn(users[senderPsid], webhookEvent, false);
           }
