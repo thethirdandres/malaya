@@ -235,11 +235,14 @@ module.exports = class Receive {
       case "AGE_15":
         this.user.age = "13-15";
         break;
-      case "AGE_18":
-        this.user.age = "15-18";
+      case "AGE_17":
+        this.user.age = "16-17";
         break;
       case "AGE_19":
-        this.user.age = "19+";
+        this.user.age = "18-19";
+        break;
+      case "AGE_20":
+        this.user.age = "20+";
         break;
       case "GU_P_REGULAR_19":
         this.user.age = "0-18";
