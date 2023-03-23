@@ -25,7 +25,7 @@ module.exports = class {
             case "CLOSE_SOGIE":
             case "CLOSE_COVID":
             case "BC_QUIZ":
-                msgParamList.push(comma.concat(user.firstName));
+                msgParamList.push((user.firstName == null || user.firstName == "") ? user.firstName : comma.concat(user.firstName));
                 break;
 
             
