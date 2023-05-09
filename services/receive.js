@@ -17,10 +17,11 @@ const Response = require("./response"),
 const Repository = require("./repository");
 
 module.exports = class Receive {
-  constructor(user, webhookEvent, isUserRef) {
+  constructor(user, webhookEvent, isUserRef, pageData) {
     this.user = user;
     this.webhookEvent = webhookEvent;
     this.isUserRef = isUserRef;
+    this.pageData = pageData;
     this.state = "";
     this.pillStatus = "";
   }
