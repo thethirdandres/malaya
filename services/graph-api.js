@@ -135,10 +135,10 @@ module.exports = class GraphApi {
     }
   }
 
-  static async getUserProfile(senderIgsid) {
+  static async getUserProfile(senderIgsid, pageAccessToken) {
     let url = new URL(`${config.apiUrl}/${senderIgsid}`);
     url.search = new URLSearchParams({
-      access_token: config.pageAccesToken,
+      access_token: pageAccesToken,
       fields: "first_name, last_name, gender, locale, timezone"
     });
     let response = await fetch(url);

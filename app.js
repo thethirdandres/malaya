@@ -81,7 +81,7 @@ app.post("/webhook", (req, res) => {
 
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(async function(entry) {
-      if ("changes" in entry) {
+      /* if ("changes" in entry) {
         // Handle Page Changes event
         let receiveMessage = new Receive();
         if (entry.changes[0].field === "feed") {
@@ -102,7 +102,7 @@ app.post("/webhook", (req, res) => {
               return;
           }
         }
-      }
+      } */
 
       // Iterate over webhook events - there may be multiple
       entry.messaging.forEach(async function(webhookEvent) {
@@ -124,15 +124,18 @@ app.post("/webhook", (req, res) => {
         let senderPsid = webhookEvent.sender.id;
         // Get the user_ref if from Chat plugin logged in user
         let user_ref = webhookEvent.sender.user_ref;
+        let fb_id = webhookEvent.recipient.id;
         // Check if user is guest from Chat plugin guest user
         let guestUser = isGuestUser(webhookEvent);
+        let pageData = await Repository.getPageInfoById(fb_id);
+        let pageAccessToken = pageData["access_token"];
 
         if (senderPsid != null && senderPsid != undefined) {
           if (!(senderPsid in users)) {
             if (!guestUser) {
               // Make call to UserProfile API only if user is not guest
               let user = new User(senderPsid);
-              GraphApi.getUserProfile(senderPsid)
+              GraphApi.getUserProfile(senderPsid, pageAccessToken)
                 .then(userProfile => {
                   user.setProfile(userProfile);
                 })
@@ -154,12 +157,12 @@ app.post("/webhook", (req, res) => {
                   return receiveAndReturn(
                     users[senderPsid],
                     webhookEvent,
-                    false
+                    false, pageAccessToken, pageData
                   );
                 });
             } else {
               setDefaultUser(senderPsid);
-              return receiveAndReturn(users[senderPsid], webhookEvent, false);
+              return receiveAndReturn(users[senderPsid], webhookEvent, false, pageAccessToken, pageData);
             }
           } else {
             i18n.setLocale(users[senderPsid].locale);
@@ -169,12 +172,12 @@ app.post("/webhook", (req, res) => {
               "with locale:",
               i18n.getLocale()
             );
-            return receiveAndReturn(users[senderPsid], webhookEvent, false);
+            return receiveAndReturn(users[senderPsid], webhookEvent, false, pageAccessToken, pageData);
           }
         } else if (user_ref != null && user_ref != undefined) {
           // Handle user_ref
           setDefaultUser(user_ref);
-          return receiveAndReturn(users[user_ref], webhookEvent, true);
+          return receiveAndReturn(users[user_ref], webhookEvent, true, pageAccessToken, pageData);
         }
       });
     });
@@ -202,9 +205,9 @@ function isGuestUser(webhookEvent) {
   return guestUser;
 }
 
-async function receiveAndReturn(user, webhookEvent, isUserRef) {
-  Repository.addCustomerMainPsid(user, webhookEvent, config.pageAccesToken);
-  let receiveMessage = new Receive(user, webhookEvent, isUserRef);
+async function receiveAndReturn(user, webhookEvent, isUserRef, pageAccessToken, pageData) {
+  Repository.addCustomerMainPsid(user, webhookEvent, pageAccessToken);
+  let receiveMessage = new Receive(user, webhookEvent, isUserRef, pageData);
   return await receiveMessage.handleMessage();
 }
 
@@ -212,6 +215,8 @@ async function receiveAndReturn(user, webhookEvent, isUserRef) {
 app.get("/profile", (req, res) => {
   let token = req.query["verify_token"];
   let mode = req.query["mode"];
+  let pageId = req.query["page_id"];
+  let pageAccessToken = req.query["access_token"];
 
   if (!config.webhookUrl.startsWith("https://")) {
     res.status(200).send("ERROR - Need a proper API_URL in the .env file");
@@ -231,7 +236,7 @@ app.get("/profile", (req, res) => {
       if (mode == "profile" || mode == "all") {
         Profile.setThread();
         res.write(
-          `<p>&#9989; Set Messenger Profile of Page ${config.pageId}</p>`
+          `<p>&#9989; Set Messenger Profile of Page ${pageId}</p>`
         );
       }
       if (mode == "personas" || mode == "all") {
@@ -251,7 +256,7 @@ app.get("/profile", (req, res) => {
       if (mode == "nlp" || mode == "all") {
         GraphApi.callNLPConfigsAPI();
         res.write(
-          `<p>&#9989; Enabled Built-in NLP for Page ${config.pageId}</p>`
+          `<p>&#9989; Enabled Built-in NLP for Page ${pageId}</p>`
         );
       }
       if (mode == "domains" || mode == "all") {

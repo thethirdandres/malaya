@@ -15,6 +15,22 @@ admin.initializeApp({
 let db = admin.firestore();  
 
 module.exports = class Repository {
+    static async getPageInfoById(fbPageId){
+        let respStoreData = {};
+
+        try {
+            let storeData = await dbRef.collection("Tenant").where("fb_id","==",fbPageId).get();
+            if(!storeData.empty) {
+                let storeSnapshot = storeData.docs[0];
+                respStoreData = storeSnapshot.data();
+            }
+        } catch (error) {
+            return respStoreData;
+        }
+
+        return respStoreData;
+    }
+
     static updateCustomerChatState(user){
         console.log("state passed to updateCustomerChatState", user.state);
         console.log("senderPsid passed to updateCustomerChatsenderState", user.psid);
