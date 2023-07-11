@@ -126,6 +126,7 @@ module.exports = class Repository {
                             docId: user.psid,
                             gender: user.gender,
                             lastMessageDate: admin.firestore.Timestamp.fromDate(new Date()),
+                            createDate: admin.firestore.Timestamp.fromDate(new Date()),
                             location: user.location,
                             updateDate: admin.firestore.Timestamp.fromDate(new Date()),
                         });
